@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ইনভেন্টরি প্রো - প্রোডাক্ট ম্যানেজমেন্ট</title>
+    <!-- Base tag ensures relative paths work correctly in subdirectories -->
+    <base href="/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -14,14 +16,16 @@
         }
         #no-script-error {
             display: none;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
             color: #721c24;
             background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            margin: 20px;
-            border-radius: 12px;
+            border: 2px solid #f5c6cb;
+            margin: 40px auto;
+            max-width: 600px;
+            border-radius: 20px;
             font-weight: bold;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
     </style>
 <script type="importmap">
@@ -37,23 +41,25 @@
 </script>
 </head>
 <body>
-    <!-- লোডিং এরর মেসেজ (যদি ফাইল খুঁজে না পায়) -->
     <div id="no-script-error">
-        অ্যাপটি লোড হতে পারছে না। অনুগ্রহ করে 'dist' ফোল্ডারের ভেতরের 'assets' ফোল্ডারটি ঠিকমতো আপলোড করেছেন কিনা নিশ্চিত করুন।
+        <h2 style="font-size: 24px; margin-bottom: 10px;">⚠️ লোডিং এরর!</h2>
+        <p>আপনার ব্রাউজার মেইন ফাইলটি (JS Bundle) খুঁজে পাচ্ছে না।</p>
+        <p style="font-size: 14px; margin-top: 10px; color: #555;">সমাধান: নিশ্চিত করুন যে আপনি cPanel-এ 'dist/assets' ফোল্ডারটি সঠিকভাবে আপলোড করেছেন।</p>
     </div>
 
     <div id="root"></div>
 
-    <!-- './' ব্যবহার করা হয়েছে যাতে cPanel এ রিলেটিভ পাথ ঠিক থাকে -->
-    <script type="module" src="./index.tsx"></script>
+    <!-- Production build will replace this with a hashed file in assets/ -->
+    <script type="module" src="/index.tsx"></script>
 
     <script>
-        // স্ক্রিপ্ট লোড না হলে ৫ সেকেন্ড পর এরর দেখাবে
+        // Check if root has content after 6 seconds
         setTimeout(() => {
-            if (!document.getElementById('root').hasChildNodes()) {
+            const root = document.getElementById('root');
+            if (root && !root.hasChildNodes()) {
                 document.getElementById('no-script-error').style.display = 'block';
             }
-        }, 5000);
+        }, 6000);
     </script>
 </body>
 </html>
